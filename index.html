@@ -48,6 +48,9 @@
             var(--second-color)
           );
         }
+        &.disactive {
+          cursor: auto;
+        }
       }
       .btns {
         width: 100%;
@@ -93,9 +96,6 @@
               padding: 5px 10px;
               color: #265073;
               cursor: pointer;
-            }
-            input[type="radio"]:not(:last-child) {
-              margin-right: 5px;
             }
           }
           .questions {
@@ -211,33 +211,58 @@
         <!-- category -->
         <label for="category">Category</label>
         <select name="category" id="category">
-          <option value="mixed">Mixed</option>
-          <option value="math">math</option>
-          <option value="computer">computer</option>
-          <option value="math">math</option>
-          <option value="computer">computer</option>
+          <option value="any">Any Category</option>
+          <option value="9">General Knowledge</option>
+          <option value="10">Entertainment: Books</option>
+          <option value="11">Entertainment: Film</option>
+          <option value="12">Entertainment: Music</option>
+          <option value="13">Entertainment: Musicals &amp; Theatres</option>
+          <option value="14">Entertainment: Television</option>
+          <option value="15">Entertainment: Video Games</option>
+          <option value="16">Entertainment: Board Games</option>
+          <option value="17">Science &amp; Nature</option>
+          <option value="18">Science: Computers</option>
+          <option value="19">Science: Mathematics</option>
+          <option value="20">Mythology</option>
+          <option value="21">Sports</option>
+          <option value="22">Geography</option>
+          <option value="23">History</option>
+          <option value="24">Politics</option>
+          <option value="25">Art</option>
+          <option value="26">Celebrities</option>
+          <option value="27">Animals</option>
+          <option value="28">Vehicles</option>
+          <option value="29">Entertainment: Comics</option>
+          <option value="30">Science: Gadgets</option>
+          <option value="31">Entertainment: Japanese Anime &amp; Manga</option>
+          <option value="32">Entertainment: Cartoon &amp; Animations</option>
         </select>
         <!-- amount -->
         <label for="amount">Amount</label>
-        <input type="number" name="amount" id="amount" value="0" min="1" max="50" />
+        <input
+          type="number"
+          name="amount"
+          id="amount"
+          value="0"
+          min="1"
+          max="50"
+        />
         <!-- type -->
         <label for="type">Type</label>
         <select name="type" id="type">
-          <option value="mixed">Mixed</option>
-          <option value="MCQ">MCQ</option>
+          <option value="any">Any Type</option>
+          <option value="multiple">MCQ</option>
           <option value="boolean">True & False</option>
         </select>
-        <!-- defficulty -->
-        <label for="defficulty">Defficulty</label>
-        <div id="defficulty" class="defficulty">
-          <label for="easy">Easy</label>
-          <input type="radio" id="easy" name="defficulty" />
-          <label for="meduim">meduim</label>
-          <input type="radio" id="meduim" name="defficulty" />
-          <label for="hard">hard</label>
-          <input type="radio" id="hard" name="defficulty" />
-        </div>
-        <div class="submit">Start Quiz</div>
+        <!-- difficulty -->
+        <label for="difficulty">Difficulty</label>
+        <select name="difficulty" id="difficulty">
+          <option value="any">Any Difficulty</option>
+          <option value="easy">Easy</option>
+          <option value="meduim">Meduim</option>
+          <option value="hard">Hard</option>
+        </select>
+        <div class="btn startQuiz">Start Quiz</div>
       </div>
       <div class="questions">
         <div class="timer">
@@ -245,56 +270,16 @@
             <span class="mintues">00</span> : <span class="seconds">00</span>
           </div>
         </div>
-        <div class="bullts">
-          <span class="active">1</span><span>2</span><span>3</span><span>4</span
-          ><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span
-          ><span>10</span>
-        </div>
         <div class="question">
-          <div class="title">
-            Lorem ipsum dolor sit amet consectetur adipisicing impedit
-            asperiores?
-          </div>
-          <div class="options">
-            <div class="answer_1">
-              <div class="bullt">
-                <span class="active"></span>
-              </div>
-              <label class="answer" for="ans1">
-                Lorem ipsum dolor, sit amet consectetur
-              </label>
-            </div>
-            <div class="answer_2">
-              <div class="bullt">
-                <span></span>
-              </div>
-              <label class="answer" for="ans2">
-                Lorem ipsum dolor, sit amet consectetur Lorem ipsum dolor, sit
-                amet consectetur Lorem ipsum dolor, sit amet consectetur
-              </label>
-            </div>
-            <div class="answer_3">
-              <div class="bullt">
-                <span></span>
-              </div>
-              <label class="answer" for="ans3">
-                Lorem ipsum dolor, sit amet consectetur
-              </label>
-            </div>
-            <div class="answer_4">
-              <div class="bullt">
-                <span></span>
-              </div>
-              <label class="answer" for="ans4">
-                Lorem ipsum dolor, sit amet consectetur
-              </label>
-            </div>
-          </div>
+          <div class="title"></div>
+          <div class="options"></div>
         </div>
         <div class="btns">
-          <div class="btn btn-prv disactive">privous</div>
+          <div class="btn btn-prv">privous</div>
           <div class="btn btn-next">next</div>
+          <div class="btn submit hide">Submit</div>
         </div>
+        <div class="bullts"></div>
       </div>
       <div class="show-result hide">
         <h2>Excellent</h2>
@@ -306,50 +291,114 @@
       </div>
     </div>
   </body>
+  <script src="./js/variables.js"></script>
+  <script src="./js/utilities.js"></script>
+  <script src="./js/script.js"></script>
   <script>
-    let submit = document.querySelector(".submit");
-    let info = document.querySelector(".quiz-info");
-    let QsContainer = document.querySelector(".questions");
-    let showResult = document.querySelector(".show-result");
-    let QContainer = document.querySelector(".question");
-    let inputCategory = document.querySelector("#category");
-    let inputAmount = document.querySelector("#amount");
-    let inputType = document.querySelector("#type");
-    let inputDefficulty = document.getElementsByName("defficulty");
-    let defficulty = 'easy';
-    let currentQ = 0;
-    let arr = [];
-
     if (localStorage.getItem("showQs") === "done") {
       QsContainer.classList.add("show");
     } else {
       info.classList.add("show");
     }
-    function startQuiz() {
-      takeInput();
-      fecthData();
-      start();
-      showPage();
-      // showQ();
-      // moveByBtns();
-      // moveByBullts();
-      // calcResult();
-      // showReslut();
-    }
-    function start() {
-      submit.addEventListener("click", () => {
+    async function start_Quiz() {
+      startQuiz.addEventListener("click", () => {
+        takeInput();
+        fetchData();
+        moveByBtns();
         info.classList.remove("show");
         QsContainer.classList.add("show");
-        localStorage.setItem("showQs", "done");
+        // localStorage.setItem("showQs", "done");
       });
     }
     function takeInput() {
-      inputAmount = inputAmount.value;
+      inputAmount = parseInt(inputAmount.value) || 1;
       inputCategory = inputCategory.value;
       inputType = inputType.value;
-      inputDefficulty.forEach((e) => {
-        if (e.checked) defficulty=e.id;
+      inputDifficulty = inputDifficulty.value;
+    }
+    async function fetchData() {
+      await fetch(
+        `https://opentdb.com/api.php?amount=${inputAmount}&${
+          inputCategory === "any" ? "" : "category=" + inputCategory + "&"
+        }${inputType === "any" ? "" : "type=" + inputType + "&"}${
+          inputDifficulty === "any" ? "" : "difficulty=" + inputDifficulty + "&"
+        }`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          arr = data.results;
+          showPage();
+          display();
+        });
+      console.log(arr);
+    }
+    function showPage() {
+      //append bullts
+      for (let i = 0; i < arr.length; i++) {
+        if (!i) bullts.innerHTML += `<span class="active">${i + 1}</span>`;
+        else bullts.innerHTML += `<span>${i + 1}</span>`;
+      }
+      bulltsSpan = document.querySelectorAll(".questions .bullts span");
+      moveByBullts();
+      showQ();
+    }
+    function showQ() {
+      //question from api
+      titleQ.innerHTML = arr[currentQ].question;
+      optionsQ.innerHTML = "";
+      // options arr
+      let answerFromApi = [
+        ...arr[currentQ].incorrect_answers,
+        arr[currentQ].correct_answer,
+      ];
+      //randomize the options
+      answerFromApi = sheffle(answerFromApi);
+      //knowing idx of correct answer
+      answerFromApi.forEach((e, i) => {
+        if (e === arr[currentQ].correct_answer) ans = i;
+      });
+      for (let i = 0; i < answerFromApi.length; i++) {
+        optionsQ.innerHTML += `
+        <div class="answer_${i + 1}">
+              <div class="bullt">
+                <span></span>
+              </div>
+              <div class='answer'>${answerFromApi[i]}</div>
+        </div>`;
+      }
+      //toggle ative class to answer from answers
+      let optionsOfQ = document.querySelectorAll(".options .bullt span");
+      toggleClass(optionsOfQ, "active");
+    }
+
+    function moveByBtns() {
+      document.querySelector(".btn-next").addEventListener("click", () => {
+        currentQ++;
+        display();
+        updateBullts(currentQ);
+      });
+      document.querySelector(".btn-prv").addEventListener("click", () => {
+        currentQ--;
+        display();
+        updateBullts(currentQ);
       });
     }
+    function moveByBullts() {
+      bulltsSpan.forEach((e, i) => {
+        e.addEventListener("click", () => {
+          bulltsSpan.forEach((e) => e.classList.remove("active"));
+          e.classList.add("active");
+          currentQ = i;
+          display();
+        });
+      });
+    }
+    function updateBullts(i) {
+      bulltsSpan.forEach((e, j) => {
+        if (i != j) e.classList.remove("active");
+        else e.classList.add("active");
+      });
+    }
+    start_Quiz();
   </script>
 </html>
