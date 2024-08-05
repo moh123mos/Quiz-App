@@ -40,13 +40,22 @@
         border: 1px solid #808080b4;
         border-radius: 10px;
         padding: 10px 10px;
-        &:hover {
+        &:hover:not(.disactive) {
           color: #fff;
           background-image: linear-gradient(
             var(--degree-gradient),
             var(--main-color),
             var(--second-color)
           );
+        }
+      }
+      .btns {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .disactive {
+          color: #fff;
+          background-color: #d4d4d4;
         }
       }
       /* styling the page */
@@ -143,6 +152,7 @@
             .title {
               font-weight: bold;
               font-size: 17px;
+              margin-bottom: 15px;
             }
             .options {
               font-size: 14px;
@@ -177,13 +187,18 @@
                   background-color: #6825ab85;
                 }
               }
-              .answer {
-              }
             }
-            .btns {
-              width: 100%;
-              display: flex;
-              justify-content: space-between;
+          }
+          .show-result {
+            text-align: center;
+            h2 {
+              color: #cd5c5c; /*Failure*/
+              color: #0acf0a; /*Good*/
+              color: #8f36e3; /*Excellent*/
+            }
+            h2,
+            h4 {
+              margin-bottom: 30px;
             }
           }
         }
@@ -192,7 +207,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="quiz-info show">
+      <div class="quiz-info">
         <!-- category -->
         <label for="category">Category</label>
         <select name="category" id="category">
@@ -204,7 +219,7 @@
         </select>
         <!-- amount -->
         <label for="amount">Amount</label>
-        <input type="number" name="amount" id="amount" value="0" />
+        <input type="number" name="amount" id="amount" value="0" min="1" max="50" />
         <!-- type -->
         <label for="type">Type</label>
         <select name="type" id="type">
@@ -216,11 +231,11 @@
         <label for="defficulty">Defficulty</label>
         <div id="defficulty" class="defficulty">
           <label for="easy">Easy</label>
-          <input type="radio" id="easy" name="deff" />
+          <input type="radio" id="easy" name="defficulty" />
           <label for="meduim">meduim</label>
-          <input type="radio" id="meduim" name="deff" />
+          <input type="radio" id="meduim" name="defficulty" />
           <label for="hard">hard</label>
-          <input type="radio" id="hard" name="deff" />
+          <input type="radio" id="hard" name="defficulty" />
         </div>
         <div class="submit">Start Quiz</div>
       </div>
@@ -230,71 +245,111 @@
             <span class="mintues">00</span> : <span class="seconds">00</span>
           </div>
         </div>
-
         <div class="bullts">
           <span class="active">1</span><span>2</span><span>3</span><span>4</span
           ><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span
           ><span>10</span>
         </div>
-        <div class="title">
-          Lorem ipsum dolor sit amet consectetur adipisicing impedit asperiores?
-        </div>
-        <div class="options">
-          <div class="answer_1">
-            <div class="bullt">
-              <span class="active"></span>
-            </div>
-            <label class="answer" for="ans1">
-              Lorem ipsum dolor, sit amet consectetur
-            </label>
+        <div class="question">
+          <div class="title">
+            Lorem ipsum dolor sit amet consectetur adipisicing impedit
+            asperiores?
           </div>
-          <div class="answer_2">
-            <div class="bullt">
-              <span></span>
+          <div class="options">
+            <div class="answer_1">
+              <div class="bullt">
+                <span class="active"></span>
+              </div>
+              <label class="answer" for="ans1">
+                Lorem ipsum dolor, sit amet consectetur
+              </label>
             </div>
-            <label class="answer" for="ans2">
-              Lorem ipsum dolor, sit amet consectetur Lorem ipsum dolor, sit
-              amet consectetur Lorem ipsum dolor, sit amet consectetur
-            </label>
-          </div>
-          <div class="answer_3">
-            <div class="bullt">
-              <span></span>
+            <div class="answer_2">
+              <div class="bullt">
+                <span></span>
+              </div>
+              <label class="answer" for="ans2">
+                Lorem ipsum dolor, sit amet consectetur Lorem ipsum dolor, sit
+                amet consectetur Lorem ipsum dolor, sit amet consectetur
+              </label>
             </div>
-            <label class="answer" for="ans3">
-              Lorem ipsum dolor, sit amet consectetur
-            </label>
-          </div>
-          <div class="answer_4">
-            <div class="bullt">
-              <span></span>
+            <div class="answer_3">
+              <div class="bullt">
+                <span></span>
+              </div>
+              <label class="answer" for="ans3">
+                Lorem ipsum dolor, sit amet consectetur
+              </label>
             </div>
-            <label class="answer" for="ans4">
-              Lorem ipsum dolor, sit amet consectetur
-            </label>
+            <div class="answer_4">
+              <div class="bullt">
+                <span></span>
+              </div>
+              <label class="answer" for="ans4">
+                Lorem ipsum dolor, sit amet consectetur
+              </label>
+            </div>
           </div>
         </div>
         <div class="btns">
-          <div class="btn btn-prv">privous</div>
+          <div class="btn btn-prv disactive">privous</div>
           <div class="btn btn-next">next</div>
+        </div>
+      </div>
+      <div class="show-result hide">
+        <h2>Excellent</h2>
+        <h4>You Get <span>4</span> from <span>5</span></h4>
+        <div class="btns">
+          <div class="btn again">Try Again</div>
+          <div class="btn another">Another Quiz</div>
         </div>
       </div>
     </div>
   </body>
   <script>
-    let start = document.querySelector(".submit");
+    let submit = document.querySelector(".submit");
     let info = document.querySelector(".quiz-info");
-    let questions = document.querySelector(".questions");
+    let QsContainer = document.querySelector(".questions");
+    let showResult = document.querySelector(".show-result");
+    let QContainer = document.querySelector(".question");
+    let inputCategory = document.querySelector("#category");
+    let inputAmount = document.querySelector("#amount");
+    let inputType = document.querySelector("#type");
+    let inputDefficulty = document.getElementsByName("defficulty");
+    let defficulty = 'easy';
+    let currentQ = 0;
     let arr = [];
-    start.addEventListener("click", () => {
-      info.classList.toggle("show");
-      questions.classList.toggle("show");
-    });
-    fetch("https://opentdb.com/api.php?amount=10")
-      .then((response) => response.json())
-      .then((data) => {
-        arr = data.results;
-        console.log(arr);
+
+    if (localStorage.getItem("showQs") === "done") {
+      QsContainer.classList.add("show");
+    } else {
+      info.classList.add("show");
+    }
+    function startQuiz() {
+      takeInput();
+      fecthData();
+      start();
+      showPage();
+      // showQ();
+      // moveByBtns();
+      // moveByBullts();
+      // calcResult();
+      // showReslut();
+    }
+    function start() {
+      submit.addEventListener("click", () => {
+        info.classList.remove("show");
+        QsContainer.classList.add("show");
+        localStorage.setItem("showQs", "done");
       });
+    }
+    function takeInput() {
+      inputAmount = inputAmount.value;
+      inputCategory = inputCategory.value;
+      inputType = inputType.value;
+      inputDefficulty.forEach((e) => {
+        if (e.checked) defficulty=e.id;
+      });
+    }
   </script>
 </html>
