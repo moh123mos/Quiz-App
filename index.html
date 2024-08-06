@@ -3,207 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css">
     <title>Quiz App</title>
-    <style>
-      /* global */
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      :root {
-        --degree-gradient: 135deg;
-        --main-color: #180161;
-        --second-color: #4f1787;
-      }
-      input,
-      select {
-        outline: none;
-        &:focus {
-          outline: none;
-        }
-      }
-      .hide {
-        display: none !important;
-      }
-      .show {
-        display: flex !important;
-      }
-      .submit,
-      .btn {
-        min-height: 45px;
-        max-height: 45px;
-        color: #265073;
-        font-weight: bold;
-        text-align: center;
-        cursor: pointer;
-        border: 1px solid #808080b4;
-        border-radius: 10px;
-        padding: 10px 10px;
-        &:hover:not(.disactive) {
-          color: #fff;
-          background-image: linear-gradient(
-            var(--degree-gradient),
-            var(--main-color),
-            var(--second-color)
-          );
-        }
-        &.disactive {
-          cursor: auto;
-        }
-      }
-      .btns {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        .disactive {
-          color: #fff;
-          background-color: #d4d4d4;
-        }
-      }
-      /* styling the page */
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 500;
-        color: #265073;
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        background-image: linear-gradient(
-          var(--degree-gradient),
-          var(--main-color),
-          var(--second-color)
-        );
-        text-transform: capitalize;
-        .container {
-          background-color: #fff;
-          padding: 20px 30px;
-          border-radius: 10px;
-          position: absolute;
-          left: 50%;
-          top: 53%;
-          transform: translate(-50%, -50%);
-          min-width: 370px;
-          max-width: 430px;
-          .quiz-info {
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-            input,
-            select {
-              border: 1px solid #808080b4;
-              border-radius: 5px;
-              padding: 5px 10px;
-              color: #265073;
-              cursor: pointer;
-            }
-          }
-          .questions {
-            display: none;
-            justify-content: start;
-            align-items: center;
-            flex-direction: column;
-            gap: 10px;
-            .timer {
-              position: absolute;
-              top: -115px;
-              height: 100px;
-              width: 100px;
-              border: 1px solid;
-              background-image: conic-gradient(
-                #eb3678,
-                #fb773c 50%,
-                #8080809b 0
-              );
-              border-radius: 50%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              .time {
-                position: absolute;
-                width: 90%;
-                height: 90%;
-                border-radius: 50%;
-                background-color: #fff;
-                color: var(--main-color); /*in danger use #eb3678 */
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              }
-            }
-            .bullts {
-              display: flex;
-              flex-wrap: wrap;
-              gap: 5px;
-              text-align: center;
-              color: #fff;
-              margin-bottom: 20px;
-              span {
-                width: 25px;
-                height: 25px;
-                border-radius: 50%;
-                background-color: #d4d4d4;
-                cursor: pointer;
-                &.active {
-                  background-color: var(--second-color);
-                }
-              }
-            }
-            .title {
-              font-weight: bold;
-              font-size: 17px;
-              margin-bottom: 15px;
-            }
-            .options {
-              font-size: 14px;
-              > div {
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px;
-              }
-              span {
-                position: relative;
-                display: block;
-                width: 20px;
-                height: 20px;
-                border: 1px solid var(--second-color);
-                border-radius: 50%;
-                margin-right: 5px;
-                &::before {
-                  content: "";
-                  position: absolute;
-                  left: 50%;
-                  top: 50%;
-                  transform: translate(-50%, -50%);
-                  width: 14px;
-                  height: 14px;
-                  border-radius: 50%;
-                  background-color: transparent;
-                }
-                &.active {
-                  background-color: var(--second-color);
-                }
-                &:hover:not(.active)::before {
-                  background-color: #6825ab85;
-                }
-              }
-            }
-          }
-          .show-result {
-            text-align: center;
-            h2 {
-              color: #cd5c5c; /*Failure*/
-              color: #0acf0a; /*Good*/
-              color: #8f36e3; /*Excellent*/
-            }
-            h2,
-            h4 {
-              margin-bottom: 30px;
-            }
-          }
-        }
-      }
-    </style>
   </head>
   <body>
     <div class="container">
@@ -243,7 +44,7 @@
           type="number"
           name="amount"
           id="amount"
-          value="0"
+          value="1"
           min="1"
           max="50"
         />
@@ -267,7 +68,7 @@
       <div class="questions">
         <div class="timer">
           <div class="time">
-            <span class="mintues">00</span> : <span class="seconds">00</span>
+            <span class="minutes"></span> <span class="seconds"></span>
           </div>
         </div>
         <div class="question">
@@ -277,128 +78,28 @@
         <div class="btns">
           <div class="btn btn-prv">privous</div>
           <div class="btn btn-next">next</div>
-          <div class="btn submit hide">Submit</div>
+          <div class="btn submit hide" onclick="sendAnswer()">Submit</div>
         </div>
         <div class="bullts"></div>
       </div>
       <div class="show-result hide">
         <h2>Excellent</h2>
-        <h4>You Get <span>4</span> from <span>5</span></h4>
+        <h4>
+          You Get <span class="score">0</span> from
+          <span class="total-Qs">0</span>
+        </h4>
         <div class="btns">
-          <div class="btn again">Try Again</div>
-          <div class="btn another">Another Quiz</div>
+          <div onclick="backToQuiz()" class="btn again">Try Again</div>
+          <div onclick="showHome()" class="btn another">Another Quiz</div>
         </div>
       </div>
     </div>
   </body>
   <script src="./js/variables.js"></script>
   <script src="./js/utilities.js"></script>
+  <script src="./js/timer.js"></script>
+  <script src="./js/moving.js"></script>
+  <script src="./js/quizPage.js"></script>
+  <script src="./js/resultPage.js"></script>
   <script src="./js/script.js"></script>
-  <script>
-    if (localStorage.getItem("showQs") === "done") {
-      QsContainer.classList.add("show");
-    } else {
-      info.classList.add("show");
-    }
-    async function start_Quiz() {
-      startQuiz.addEventListener("click", () => {
-        takeInput();
-        fetchData();
-        moveByBtns();
-        info.classList.remove("show");
-        QsContainer.classList.add("show");
-        // localStorage.setItem("showQs", "done");
-      });
-    }
-    function takeInput() {
-      inputAmount = parseInt(inputAmount.value) || 1;
-      inputCategory = inputCategory.value;
-      inputType = inputType.value;
-      inputDifficulty = inputDifficulty.value;
-    }
-    async function fetchData() {
-      await fetch(
-        `https://opentdb.com/api.php?amount=${inputAmount}&${
-          inputCategory === "any" ? "" : "category=" + inputCategory + "&"
-        }${inputType === "any" ? "" : "type=" + inputType + "&"}${
-          inputDifficulty === "any" ? "" : "difficulty=" + inputDifficulty + "&"
-        }`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          arr = data.results;
-          showPage();
-          display();
-        });
-      console.log(arr);
-    }
-    function showPage() {
-      //append bullts
-      for (let i = 0; i < arr.length; i++) {
-        if (!i) bullts.innerHTML += `<span class="active">${i + 1}</span>`;
-        else bullts.innerHTML += `<span>${i + 1}</span>`;
-      }
-      bulltsSpan = document.querySelectorAll(".questions .bullts span");
-      moveByBullts();
-      showQ();
-    }
-    function showQ() {
-      //question from api
-      titleQ.innerHTML = arr[currentQ].question;
-      optionsQ.innerHTML = "";
-      // options arr
-      let answerFromApi = [
-        ...arr[currentQ].incorrect_answers,
-        arr[currentQ].correct_answer,
-      ];
-      //randomize the options
-      answerFromApi = sheffle(answerFromApi);
-      //knowing idx of correct answer
-      answerFromApi.forEach((e, i) => {
-        if (e === arr[currentQ].correct_answer) ans = i;
-      });
-      for (let i = 0; i < answerFromApi.length; i++) {
-        optionsQ.innerHTML += `
-        <div class="answer_${i + 1}">
-              <div class="bullt">
-                <span></span>
-              </div>
-              <div class='answer'>${answerFromApi[i]}</div>
-        </div>`;
-      }
-      //toggle ative class to answer from answers
-      let optionsOfQ = document.querySelectorAll(".options .bullt span");
-      toggleClass(optionsOfQ, "active");
-    }
-
-    function moveByBtns() {
-      document.querySelector(".btn-next").addEventListener("click", () => {
-        currentQ++;
-        display();
-        updateBullts(currentQ);
-      });
-      document.querySelector(".btn-prv").addEventListener("click", () => {
-        currentQ--;
-        display();
-        updateBullts(currentQ);
-      });
-    }
-    function moveByBullts() {
-      bulltsSpan.forEach((e, i) => {
-        e.addEventListener("click", () => {
-          bulltsSpan.forEach((e) => e.classList.remove("active"));
-          e.classList.add("active");
-          currentQ = i;
-          display();
-        });
-      });
-    }
-    function updateBullts(i) {
-      bulltsSpan.forEach((e, j) => {
-        if (i != j) e.classList.remove("active");
-        else e.classList.add("active");
-      });
-    }
-    start_Quiz();
-  </script>
 </html>

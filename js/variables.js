@@ -1,3 +1,4 @@
+let container = document.querySelector(".container");
 let startQuiz = document.querySelector(".startQuiz");
 let info = document.querySelector(".quiz-info");
 let QsContainer = document.querySelector(".questions");
@@ -8,11 +9,21 @@ let QContainer = document.querySelector(".question");
 let titleQ = document.querySelector(".question .title");
 let optionsQ = document.querySelector(".question .options");
 let answers = document.querySelectorAll(".question .options>div");
+let optionsOfQ = document.querySelectorAll(".options .bullt span");
 let showResult = document.querySelector(".show-result");
+let rateResult = document.querySelector(".show-result h2");
 let inputCategory = document.querySelector("#category");
 let inputAmount = document.querySelector("#amount");
 let inputType = document.querySelector("#type");
 let inputDifficulty = document.querySelector("#difficulty");
+let total_Qs = document.querySelector(".total-Qs");
+let finalScore = document.querySelector(".score");
+let timer = document.querySelector(".timer");
+let minutes = document.querySelector(".timer .minutes");
+let seconds = document.querySelector(".timer .seconds");
 let currentQ = 0;
+let scoreArr = [];
 let score = 0;
 let arr = [];
+
+rateResult.className

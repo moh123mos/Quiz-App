@@ -30,4 +30,3 @@ function display() {
     document.querySelector(".submit").classList.add("hide");
   }
 }
-
