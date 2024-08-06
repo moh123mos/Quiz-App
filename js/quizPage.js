@@ -1,18 +1,21 @@
-
 async function fetchData() {
-  await fetch(
+  let response = await fetch(
     `https://opentdb.com/api.php?amount=${inputAmount}&${
       inputCategory === "any" ? "" : "category=" + inputCategory + "&"
     }${inputType === "any" ? "" : "type=" + inputType + "&"}${
       inputDifficulty === "any" ? "" : "difficulty=" + inputDifficulty + "&"
     }`
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      arr = data.results;
-      showPage();
-      display();
-    });
+  );
+
+  if (!response.ok) {
+    
+    throw new Error(`Failed to fetch data: ${response.status} ${location.reload()}`);
+  }
+  let data = await response.json();
+  arr = data.results;
+
+  showPage();
+  display();
   console.log(arr);
 }
 function showPage() {
