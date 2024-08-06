@@ -8,12 +8,13 @@ async function fetchData() {
   );
 
   if (!response.ok) {
-    
-    throw new Error(`Failed to fetch data: ${response.status} ${location.reload()}`);
+    throw new Error(
+      `Failed to fetch data: ${response.status} ${location.reload()}`
+    );
   }
   let data = await response.json();
   arr = data.results;
-
+  if (arr.length == 0) location.reload();
   showPage();
   display();
   console.log(arr);
